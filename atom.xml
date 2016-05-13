@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>duart</title>
+  <subtitle>chase excellence, success will follow you;</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://hivan.me/"/>
+  <updated>2016-05-13T03:09:11.000Z</updated>
+  <id>http://hivan.me/</id>
+  
+  <author>
+    <name>Hivan Du</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Debian安装SSH</title>
+    <link href="http://hivan.me/debian-install-ssh/"/>
+    <id>http://hivan.me/debian-install-ssh/</id>
+    <published>2016-05-12T04:02:56.000Z</published>
+    <updated>2016-05-13T03:09:11.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;span style=&quot;font-size:14px; color: #eee;&quot;&gt;for my dote&lt;/span&gt;&lt;/p&gt;
+&lt;h1 id=&quot;要求：-安装Debian-8-64位操作系统&quot;&gt;&lt;a href=&quot;#要求：-安装Debian-8-64位操作系统&quot; class=&quot;headerlink&quot; title=&quot;要求： 安装Debian 8.* 64位操作系统&quot;&gt;&lt;/a&gt;要求： 安装Debian 8.* 64位操作系统&lt;/h1&gt;&lt;h3 id=&quot;分区要求-不要分区&quot;&gt;&lt;a href=&quot;#分区要求-不要分区&quot; class=&quot;headerlink&quot; title=&quot;分区要求: 不要分区&quot;&gt;&lt;/a&gt;分区要求: 不要分区&lt;/h3&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Partitioning mehod: use entire disk&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-install-1.jpg&quot; alt=&quot;entire disk&quot;&gt;&lt;/li&gt;
+&lt;li&gt;Partitioning scheme: All files in one partition&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-install-2.jpg&quot; alt=&quot;All files&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;选择源镜像-mirror-country&quot;&gt;&lt;a href=&quot;#选择源镜像-mirror-country&quot; class=&quot;headerlink&quot; title=&quot;选择源镜像 (mirror country)&quot;&gt;&lt;/a&gt;选择源镜像 (mirror country)&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;请选择china&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-instal-3.jpg&quot; alt=&quot;country&quot;&gt;&lt;br&gt;然后选择&lt;strong&gt;&lt;code&gt;ftp.cn.debian.org&lt;/code&gt;&lt;/strong&gt;&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-install-4.jpg&quot; alt=&quot;ftp&quot;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;程序和服务需求&quot;&gt;&lt;a href=&quot;#程序和服务需求&quot; class=&quot;headerlink&quot; title=&quot;程序和服务需求&quot;&gt;&lt;/a&gt;程序和服务需求&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;debian 默认最小安装，安装的时候不用安装桌面环境和标准系统实用程序(以下两个不需要勾选):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Debian destop environment&lt;/li&gt;
+&lt;li&gt;Standard system utilities&lt;br&gt;&lt;strong&gt;如果有&lt;code&gt;SSH server&lt;/code&gt;选项，请务必勾选，之后会省很多麻烦&lt;/strong&gt;&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-install-5.jpg&quot; alt=&quot;server&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;安装SSH&quot;&gt;&lt;a href=&quot;#安装SSH&quot; class=&quot;headerlink&quot; title=&quot;安装SSH&quot;&gt;&lt;/a&gt;安装SSH&lt;/h1&gt;&lt;p&gt;debian最小安装默认是没有配置&lt;code&gt;apt-get&lt;/code&gt;源的，这个时候无法实用&lt;code&gt;apt-get install&lt;/code&gt;命令，所以在安装SSH之前，我们需要先配置&lt;code&gt;apt-get&lt;/code&gt;:&lt;/p&gt;
+&lt;h3 id=&quot;配置apt-get&quot;&gt;&lt;a href=&quot;#配置apt-get&quot; class=&quot;headerlink&quot; title=&quot;配置apt-get&quot;&gt;&lt;/a&gt;配置&lt;code&gt;apt-get&lt;/code&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;终端内操作&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 首先我们需要备份原有配置文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cp /etc/apt/sources.list /etc/apt/sources.listbak&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 然后对资源列表文件进行编辑&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/apt/sources.list&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 当然也可以实用nano命令&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nano /etc/apt/source.list&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;PS: 如果对VI操作不熟悉的，可以看这里 &lt;a href=&quot;http://c.biancheng.net/cpp/html/2735.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;vi编辑器常见命令实用&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;如果安装的时候按照之前我给的步骤来，那么这会的&lt;code&gt;sources.list&lt;/code&gt;应该是这样的&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-source-list.jpg&quot; alt=&quot;source.list&quot;&gt;&lt;/p&gt;
+&lt;p&gt;对文件进行更改，将以下命令加入文件并保存:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;deb http://ftp.cn.debian.org/debian/ jessie main contrib non-free &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;deb-src http://ftp.cn.debian.org/debian/ jessie main contrib non-free&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;更改后的文件如图:&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-source-list-change.jpg&quot; alt=&quot;source change&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;main, contrib, non-free 分属不同的源，添加后可以从不同的源仓库更新文件索引&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;至此&lt;code&gt;apt-get&lt;/code&gt;源就配置完毕，接下来我们就可以安装SSH了&lt;/p&gt;
+&lt;h3 id=&quot;安装SSH-1&quot;&gt;&lt;a href=&quot;#安装SSH-1&quot; class=&quot;headerlink&quot; title=&quot;安装SSH&quot;&gt;&lt;/a&gt;安装SSH&lt;/h3&gt;&lt;p&gt;在终端内输入以下命令:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 更新apt-get源&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 更新系统&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get upgrade&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 安装SSH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get install ssh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样就好了，SSH安装完毕 &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/debian-install-ssh.jpg&quot; alt=&quot;install ssh&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;span style=&quot;font-size:14px; color: #eee;&quot;&gt;for my dote&lt;/span&gt;&lt;/p&gt;
+&lt;h1 id=&quot;要求：-安装Debian-8-64位操作系统&quot;&gt;&lt;a href=&quot;#要求：-安装Debian-8-64位操作系统&quot; class=&quot;headerlink&quot; title=&quot;要求： 安装Debian 8.* 64位操作系统&quot;&gt;&lt;/a&gt;要求： 安装Debian 8.* 64位操作系统&lt;/h1&gt;&lt;h3 id=&quot;分区要求-不要分区&quot;&gt;&lt;a href=&quot;#分区要求-不要分区&quot; class=&quot;headerlink&quot; title=&quot;分区要求: 不要分区&quot;&gt;&lt;/a&gt;分区要求: 不要分区&lt;/h3&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://hivan.me/tags/linux/"/>
+    
+      <category term="ssh" scheme="http://hivan.me/tags/ssh/"/>
+    
+      <category term="dote" scheme="http://hivan.me/tags/dote/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VH 情怀黄铜原子笔</title>
+    <link href="http://hivan.me/VH-brass-pen/"/>
+    <id>http://hivan.me/VH-brass-pen/</id>
+    <published>2016-01-29T04:27:55.000Z</published>
+    <updated>2016-01-29T07:33:06.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/20542022&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;「知乎专栏地址」&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;收到 @罗文森 赠送的笔已经很多天了，快两个星期了吧。&lt;/p&gt;
+&lt;p&gt;一直在找时间想写一篇评测出来，终究是没抽出时间，况且，我不是写手！眼看时间一天天过去，心里也越来越愧疚。&lt;/p&gt;
+&lt;p&gt;其实最主要的也不单单是写不出什么，而是总归要用它画两幅画出来，才会感觉的出来到底合不合心意。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;对于文具的偏爱，估计是从学生时代就开始了。记得高中的时候缠着老爸给买了第一个奢侈品：一支派克。虽然很珍惜，却并不好用。自此对文具就更是挑剔。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一支好笔，真的能陪一个人好久好久。&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;打拆包之前，就一股浓浓的逼格。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-18%2013.34.33-1.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-18%2013.34.58-1.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;不过问题来了，我不知道怎么打开包装！XD - 一直不敢使劲，生怕损坏了什么，折腾了好久，才明白，原来连着盒盖的那张纸，是用来撕的。&lt;/p&gt;
+&lt;p&gt;打开之后，金色的笔体和其皮外套分开躺在盒内，逼格更甚了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-18%2013.35.44-1.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;喜欢盒子内部的那句话：“合适的形态总有他合适的作用，还原物的本质，至真至纯，用一支笔唤起书写的初心。”， 好吧，又是一个走情怀的产品。不过对于这个包装和笔本身的设计来说，这个情怀我还是蛮受用的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-18%2013.37.16-1.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;而关于细节上，笔的打磨很是花费了一番功夫，那种黄铜的质感以及似乎岁月沉淀的感觉，让人爱不释手。（这些天只要是要签字的机会，我基本都拿出它来装逼）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-18%2017.43.50.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;而关于旋转笔头，旋转的过程中特别的舒服。到位后的力回馈也刚刚好，让我转来转去玩了好久。额，给玩的不灵光了。（看来关于使用强度，长家还是需要加强）。&lt;/p&gt;
+&lt;p&gt;关于那件小皮装，似乎有点小了，装进去是用了一些力气的。额，拿出来就更费劲了，太紧了。不过相信用一段时间，也就松了。对于这样一直精致的情怀笔，这件皮衣还是相当必要的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-18%2017.46.14-1.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;笔当然还是要用才能知道是否合心意, VH 这支黄铜笔，拿在手上的感觉，重量十足，根本是那些塑料笔没办法比的。但是这个重量不大不小，真的正合适。想起厂商吹的牛逼：“打造了最佳的配重”。 这牛逼不为过。 至于握感上，这个笔对于我来说似乎纤细了一点，可能也是因为我握惯了粗的笔，包括我最爱的那支53Pencil，也是比较粗的。而在厂家原装的那支笔芯，使用起来也是非常顺畅（就喜欢这样顺畅的笔芯）。不过用完需要更换笔芯的时候，就需要买好一点了，要不可惜了这么好的笔。&lt;/p&gt;
+&lt;p&gt;最后随笔画了两幅画来试笔。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-18%2018.22.54.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7q5fox.com1.z0.glb.clouddn.com/2016-01-29%2010.12.32-2.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;太久不画画了，大家将就看吧！&lt;/p&gt;
+&lt;p&gt;有想买的，链接在这里 : &lt;a href=&quot;https://shop142818660.taobao.com/?spm=a230r.7195193.1997079397.2.lP8nay&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;首页-vh企业店&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PS：VH家的那个无线充电器，也是逼格满满。打算入一个。。。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/20542022&quot;&gt;「知乎专栏地址」&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;收到 @罗文森 赠送的笔已经很多天了，快两个星期了吧。&lt;/p&gt;
+&lt;p&gt;一直在找时间想写一篇评测出来，终究是没抽出时间，况且，我不是写手！眼看时间一天天过去，心里也越来越愧疚。&lt;/p&gt;
+&lt;p&gt;其实最主要的也不单单是写不出什么，而是总归要用它画两幅画出来，才会感觉的出来到底合不合心意。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SOLOVE Air-M20000</title>
+    <link href="http://hivan.me/solove/"/>
+    <id>http://hivan.me/solove/</id>
+    <published>2015-11-30T06:49:01.000Z</published>
+    <updated>2015-12-09T05:14:17.000Z</updated>
+    
+    <content type="html">&lt;p&gt;第一次为产品写评测吧我这是，也不太记得了。不过以下这个电源，觉得值得写上一篇。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;「SOLOVE移动电源 Air-M20000」&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;照例先来几张开箱图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_1.jpg&quot; alt=&quot;images&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_2.jpg&quot; alt=&quot;images&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_4.jpg&quot; alt=&quot;images&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本来应该再早一个月拿到这款电源的，因为产能的原因，跳票了。好吧，后来又因为快递单的遗漏，跳票了更久。不过好东西都是值得等待的。&lt;/p&gt;
+&lt;p&gt;第一次打开包装盒的时候，拿在手上满满的质感，身躯娇小，容量却很大。不过说起来，因为控制了高宽的原因（高宽仅与一张信用卡大小相仿），厚度不太理想。达到了一枚1元硬币的厚度，虽然握在手上的手感十分舒服，但是如果对于想揣在衣服口袋里的人来说，可能这个厚度稍稍有点不甚让人满意，说起来，10000mAh的容量，能做到如此地步已经很不容易了。&lt;/p&gt;
+&lt;p&gt;而对于SOLOVE Air-M20000的设计，相信也是能俘获很多人的心。电源灯的效果真的是很漂亮。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_5.jpg&quot; alt=&quot;images&quot;&gt;&lt;/p&gt;
+&lt;p&gt;也许是因为控制尺寸的原因吧，SOLOVE Air-M20000并没有像其他大容量移动电池一样配备两个输出插孔，只有一个。输入Micro-USB, 输出为USB-A.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_6.jpg&quot; alt=&quot;输出口&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_7.jpg&quot; alt=&quot;输入口&quot;&gt;&lt;/p&gt;
+&lt;p&gt;不过联想多数时候，我的小米电源另一个输出口都空的情况，其实一个已经足够了，重点是轻便易携带。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_3.jpg&quot; alt=&quot;技术参数&quot;&gt;&lt;/p&gt;
+&lt;p&gt;上周五这款电源已经到货了，没有第一时间拿来写当然是为了接受下周末的检验。&lt;/p&gt;
+&lt;p&gt;实际使用中，周五的晚上电源满电，周六出门12点半到下午6点，iPhone 6从3点开始电量百分之15，接入SOLOVE，1小时后达到92%，期间不停的在发微信。然后取下电源，周六没有为SOLOVE充电，周日12点多左右出门，到下午6点多回来，iPhone 6经历了两次空电的情况。而两次SOLOVE都将电量充满。&lt;/p&gt;
+&lt;p&gt;实际使用情况下，SOLOVE的容量还是不错的，iPhone 6来回充满三到四次应该是不成问题，更重要的是，充电速度很快。在不断使用过程中，一个小时基本就可以完全充满。当然，每个不同型号的手机可能都有差别。&lt;/p&gt;
+&lt;p&gt;所以SOLOVE的Air-M20000, 无论是从设计，做工还是续航情况，都还是蛮值得入手的。唯一遗憾的点，为什么给了我一个红色的，而不是黑色或白色的。。。。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一次为产品写评测吧我这是，也不太记得了。不过以下这个电源，觉得值得写上一篇。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;「SOLOVE移动电源 Air-M20000」&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;照例先来几张开箱图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/SOLOVE_1.jpg&quot; alt=&quot;images&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>VSCO FILM 00 FREE STARTER PACK</title>
+    <link href="http://hivan.me/VSCO-FILM-00-FREE-STARTER-PACK/"/>
+    <id>http://hivan.me/VSCO-FILM-00-FREE-STARTER-PACK/</id>
+    <published>2015-04-23T07:34:40.000Z</published>
+    <updated>2015-11-20T08:24:23.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/VSCO_WEB.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/20010817&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;本文知乎专栏&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;VSCOCam是iOS上一款滤镜相机，其最著名的地方就是他们的胶片滤镜。 而其实VSCO在这款APP之前，就一直在做胶片滤镜，有OS X和WIN两个平台的版本。最主要的是作为LightRoom的插件存在。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;而现在提供免费下载的这款滤镜就是针对LightRoom的滤镜插件，有OS X和WIN两个版本提供。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/VSCO_PACK_FILM00.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We are thrilled to announce VSCO Film 00, our first-ever FREE starter pack.&lt;/p&gt;
+&lt;p&gt;Perfect for anyone who uses VSCO Cam and is looking to take the next step, VSCO Film 00 brings beautiful presets, custom camera profiles, and the familiar VSCO editing experience to your desktop in Adobe Lightroom.&lt;/p&gt;
+&lt;p&gt;VSCO Film 00 includes two of our most popular film stocks (Kodak Gold 100 from Film 05 and Kodak Tri-X from Film 06) and is available for download now.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;有需要的可以点击原文链接进行下载，不要感谢我，我是雷锋。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PS: 关于之前我提到的Enlight导出图片丢失数据的部分，我在此向读者和开发者致歉，原因是导出的如果是PNG图片是不能保存那些信息的，可以将图片的质量从Pro调小到Hight, 保存的就是JPEG图片，那么导出的图片地理位置和相机信息就会一并保存了。&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/VSCO_WEB.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/20010817&quot;&gt;本文知乎专栏&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;VSCOCam是iOS上一款滤镜相机，其最著名的地方就是他们的胶片滤镜。 而其实VSCO在这款APP之前，就一直在做胶片滤镜，有OS X和WIN两个平台的版本。最主要的是作为LightRoom的插件存在。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="plugin" scheme="http://hivan.me/tags/plugin/"/>
+    
+      <category term="graphy" scheme="http://hivan.me/tags/graphy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>enlight VS snapseed2</title>
+    <link href="http://hivan.me/enlight-VS-snapseed2/"/>
+    <id>http://hivan.me/enlight-VS-snapseed2/</id>
+    <published>2015-04-10T07:13:48.000Z</published>
+    <updated>2015-11-20T07:33:54.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed2.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/19999482&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;本文知乎专栏地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在Enlight出来之前，Snapseed曾经是我最主要的修图工具。  &lt;/p&gt;
+&lt;p&gt;当然，Enlight确实是大而全的一款App，但是使用中，却让我有了无法忍受的一点。那就是丢失部分图片信息。&lt;/p&gt;
+&lt;p&gt;导出的时候，Enlight导出所用的格式是PNG，而Snapseed仍然是jpg导出。自然大家都知道PNG图片所用的格式是无损的，这就是说，Snapseed导出的图像相比Enlight要小很多，因为iPhone默认拍照所保存的都是jpg格式，所以即便再导出PNG格式，那所增加的部分应该是软件通过算法添加进去的。&lt;br&gt;而，Enlight在导出的PNG格式图片里，却丢失了相机信息，地理位置信息和更重要的拍照时间信息。照片的时间被导出的时间所代替。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;同样一张照片，我们先使用Enlight进行修图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed21.jpg&quot; alt=&quot;image&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed22.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;然后使用Snapseed 2 修图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed23.jpg&quot; alt=&quot;image&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed24.jpg&quot; alt=&quot;iamge&quot;&gt;&lt;/p&gt;
+&lt;p&gt;以下是使用Metapho查看的照片信息。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先我们来看Enlight导出的照片信息:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed25.jpg&quot; alt=&quot;image&quot;&gt;&lt;br&gt;可以看到Camera和Location信息都没有了，照片被导出成PNG格式，而且照片大了很多。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我们再来看看Snapseed导出的照片信息&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed26.jpg&quot; alt=&quot;image&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed27.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到Camera和Location信息都保存完好。&lt;/p&gt;
+&lt;p&gt;这也是Enlight最让我无法接受的一点，其实Enlight在设置里是可以选择增加地理信息的，也就是会调用GPS模块，但是当导出的时候这些信息就全都没有了，即便是用Enlight来拍照。不知道下一版本的Enlight是否能够改善这点。如果对这些信息无所谓的同学，Enlight倒是现今为止最强大的修图工具，Snapseed虽然更新到版本2了，但是似乎依然没有加入曲线。Snapseed2的具体更新，可以点击原文链接查看「领客」内的文。&lt;/p&gt;
+&lt;p&gt;———&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/wechat_QR.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/enlightVSsnapseed2.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/19999482&quot;&gt;本文知乎专栏地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在Enlight出来之前，Snapseed曾经是我最主要的修图工具。  &lt;/p&gt;
+&lt;p&gt;当然，Enlight确实是大而全的一款App，但是使用中，却让我有了无法忍受的一点。那就是丢失部分图片信息。&lt;/p&gt;
+&lt;p&gt;导出的时候，Enlight导出所用的格式是PNG，而Snapseed仍然是jpg导出。自然大家都知道PNG图片所用的格式是无损的，这就是说，Snapseed导出的图像相比Enlight要小很多，因为iPhone默认拍照所保存的都是jpg格式，所以即便再导出PNG格式，那所增加的部分应该是软件通过算法添加进去的。&lt;br&gt;而，Enlight在导出的PNG格式图片里，却丢失了相机信息，地理位置信息和更重要的拍照时间信息。照片的时间被导出的时间所代替。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="app" scheme="http://hivan.me/tags/app/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Knock 升级 -- 快速输入管理员密码</title>
+    <link href="http://hivan.me/Knock-update/"/>
+    <id>http://hivan.me/Knock-update/</id>
+    <published>2015-02-15T06:39:50.000Z</published>
+    <updated>2015-11-20T07:46:14.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/knock_web.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/19984977&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;本文知乎专栏&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;还记得之前介绍过的Knock么？只需要敲击两下就能快速解锁Mac的app。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;其实这款App还是 @Rachel 介绍给我的，当时就觉得很酷，可是用下来之后，并没有觉得有很高的实用性。  &lt;/p&gt;
+&lt;p&gt;不过，这次Knock升级了，除了解锁Mac之外，还可以再你需要root权限的时候免去输入管理员密码的麻烦，你所需要的，仅仅是敲击两下你的iPhone。&lt;/p&gt;
+&lt;p&gt;好吧，现在可以为自己的Mac设定一个超级复杂的密码了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/knock_lock.jpg&quot; alt=&quot;image&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://duart.qiniudn.com/knock_mac.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/knock_web.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zhuanlan.zhihu.com/hivandu/19984977&quot;&gt;本文知乎专栏&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;还记得之前介绍过的Knock么？只需要敲击两下就能快速解锁Mac的app。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>重裝「Yosemite」</title>
+    <link href="http://hivan.me/reinstall-mac-osx-Yosemite/"/>
+    <id>http://hivan.me/reinstall-mac-osx-Yosemite/</id>
+    <published>2015-01-25T16:59:29.000Z</published>
+    <updated>2015-12-09T05:14:17.000Z</updated>
+    
+    <content type="html">&lt;p&gt;重裝系統之後，很多東西需要重裝，特別是開發環境。而開發環境的先後順序和設置，一直是我頭疼的事情。這次就着從新安裝了一遍，把很多東西都記錄下來。之前那個環境被我搞的亂七八糟，並且恢復不回來了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/Yosemite.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;多大多數次序參照 @&lt;a href=&quot;http://mrzhang.me/blog/after-reinstall-the-system.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;mrzhang&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;系統偏好設置&quot;&gt;&lt;a href=&quot;#系統偏好設置&quot; class=&quot;headerlink&quot; title=&quot;系統偏好設置&quot;&gt;&lt;/a&gt;系統偏好設置&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;更改電腦名稱&lt;/p&gt;
+&lt;p&gt;共享&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;允許安裝任何來源APP&lt;/p&gt;
+&lt;p&gt;安全性與隱私 –》通用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;設置快捷鍵&lt;/p&gt;
+&lt;p&gt;鍵盤 –》 快捷鍵&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;配置VPN以及SSH&quot;&gt;&lt;a href=&quot;#配置VPN以及SSH&quot; class=&quot;headerlink&quot; title=&quot;配置VPN以及SSH&quot;&gt;&lt;/a&gt;配置VPN以及SSH&lt;/h2&gt;&lt;p&gt;  &lt;strong&gt;很重要，因爲很多源都在牆外了&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;安裝輸入法&quot;&gt;&lt;a href=&quot;#安裝輸入法&quot; class=&quot;headerlink&quot; title=&quot;安裝輸入法&quot;&gt;&lt;/a&gt;安裝輸入法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;下載並安裝”&lt;a href=&quot;https://code.google.com/p/rimeime/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Squirrel&lt;/a&gt;“&lt;/li&gt;
+&lt;li&gt;下載並安裝”SCU” &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;安裝&lt;a href=&quot;http://www.sublimetext.com/3&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Sublime Text 3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://packagecontrol.io/installation&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;設置package&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Ctrl+ ,&lt;/code&gt; and &lt;a href=&quot;https://github.com/hivan/SomeSetting/blob/master/SubT2Setting.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;setting&lt;/a&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;caret\_style&amp;quot;: &amp;quot;phase&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;color\_scheme&amp;quot;: &amp;quot;Packages/Color Scheme - Default/Solarized (Light).tmTheme&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;font\_face&amp;quot;: &amp;quot;Monaco&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;font\_size&amp;quot;: 13.0,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;hightlight\_line&amp;quot;: true,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;hightlight\_modified\_tabs&amp;quot;: true,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;ignored\_packages&amp;quot;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;quot;Vintage&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ],&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;indent\_to\_bracket&amp;quot;: true,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;draw\_centered&amp;quot;: false, //居中显示&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;line\_numbers&amp;quot;: true, //显示行号&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;gutter&amp;quot;: true, //显示行号边栏&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;fold\_buttons&amp;quot;: true, //显示折叠按钮&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;fade\_fold\_buttons&amp;quot;: true, //始终显示折叠按钮&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;rulers&amp;quot;: [], //列显示垂直标尺，在中括号里填写数字，宽度按字符计算&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;spell\_check&amp;quot;: false, //拼写检查&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;hot\_exit&amp;quot;: true, //保留未保存内容&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;line\_padding\_bottom&amp;quot;: 1,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;line\_padding\_top&amp;quot;: 1,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;scroll\_past\_end&amp;quot;: true, //文本最下方缓冲区&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;tab\_size&amp;quot;: 2, // Tab制表宽度&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;translate\_tabs\_to\_spaces&amp;quot;: true, //缩进和遇到Tab键用空格替代&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;wide\_caret&amp;quot;: true,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;word\_wrap&amp;quot;: true,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;match\_tags&amp;quot;: true, //HTML下突出显示光标所在标签的两端。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;match\_selection&amp;quot;: true, //全文高亮当前选中字符&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;quot;wrap\_width&amp;quot;: 80&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;編輯設置-etc-paths&quot;&gt;&lt;a href=&quot;#編輯設置-etc-paths&quot; class=&quot;headerlink&quot; title=&quot;編輯設置 /etc/paths&quot;&gt;&lt;/a&gt;編輯設置 /etc/paths&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/usr/local/bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/usr/local/sbin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/usr/bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/usr/sbin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/sbin&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安裝Xcode&quot;&gt;&lt;a href=&quot;#安裝Xcode&quot; class=&quot;headerlink&quot; title=&quot;安裝Xcode&quot;&gt;&lt;/a&gt;安裝&lt;a href=&quot;https://developer.apple.com/xcode/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Xcode&lt;/a&gt;&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;xcode-select --install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安裝Homebrew&quot;&gt;&lt;a href=&quot;#安裝Homebrew&quot; class=&quot;headerlink&quot; title=&quot;安裝Homebrew&quot;&gt;&lt;/a&gt;安裝&lt;a href=&quot;http://brew.sh/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Homebrew&lt;/a&gt;&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/homebrew/go/install)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;PS: 這裏可能會很長時間的等待&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;設置Sublime終端鏈接&quot;&gt;&lt;a href=&quot;#設置Sublime終端鏈接&quot; class=&quot;headerlink&quot; title=&quot;設置Sublime終端鏈接&quot;&gt;&lt;/a&gt;設置Sublime終端鏈接&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/sm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;Git-autojump&quot;&gt;&lt;a href=&quot;#Git-autojump&quot; class=&quot;headerlink&quot; title=&quot;Git, autojump&quot;&gt;&lt;/a&gt;Git, &lt;a href=&quot;https://github.com/joelthelion/autojump&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;autojump&lt;/a&gt;&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;brew install git autojump&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;Oh-My-Zsh&quot;&gt;&lt;a href=&quot;#Oh-My-Zsh&quot; class=&quot;headerlink&quot; title=&quot;Oh My Zsh&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://ohmyz.sh/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Oh My Zsh&lt;/a&gt;&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;設置 &lt;code&gt;~/.zshrc&lt;/code&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export NVM\_NODEJS\_ORG\_MIRROR=&amp;quot;http://npm.taobao.org/dist&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[[ -s &amp;quot;$HOME/.nvm/nvm.sh&amp;quot; ]] &amp;amp;&amp;amp; . &amp;quot;$HOME/.nvm/nvm.sh&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export NODE\_PATH=$NVM\_DIR/$(nvm\_ls current)/lib/node\_modules&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安裝-NodeJS&quot;&gt;&lt;a href=&quot;#安裝-NodeJS&quot; class=&quot;headerlink&quot; title=&quot;安裝 NodeJS&quot;&gt;&lt;/a&gt;安裝 NodeJS&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;nvm install 0.11.15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nvm alias default 0.11.15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安裝rbenv&quot;&gt;&lt;a href=&quot;#安裝rbenv&quot; class=&quot;headerlink&quot; title=&quot;安裝rbenv&quot;&gt;&lt;/a&gt;安裝&lt;a href=&quot;https://github.com/sstephenson/rbenv&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;rbenv&lt;/a&gt;&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git clone git://github.com/sstephenson/rbenv.git \~/.rbenv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 用来编译安装 ruby&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git clone git://github.com/sstephenson/ruby-build.git \~/.rbenv/plugins/ruby-build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 用来管理 gemset, 可选, 因为有 bundler 也没什么必要&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git clone git://github.com/jamis/rbenv-gemset.git  \~/.rbenv/plugins/rbenv-gemset&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 通过 gem 命令安装完 gem 后无需手动输入 rbenv rehash 命令, 推荐&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git clone git://github.com/sstephenson/rbenv-gem-rehash.git \~/.rbenv/plugins/rbenv-gem-rehash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 通过 rbenv update 命令来更新 rbenv 以及所有插件, 推荐&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git clone https://github.com/rkh/rbenv-update.git \~/.rbenv/plugins/rbenv-update&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;設置-zshrc&quot;&gt;&lt;a href=&quot;#設置-zshrc&quot; class=&quot;headerlink&quot; title=&quot;設置~/.zshrc&quot;&gt;&lt;/a&gt;設置&lt;code&gt;~/.zshrc&lt;/code&gt;&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;eval &amp;quot;$(rbenv init -)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;其他&quot;&gt;&lt;a href=&quot;#其他&quot; class=&quot;headerlink&quot; title=&quot;其他&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://ruby-china.org/wiki/rbenv-guide&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;其他&lt;/a&gt;&lt;/h4&gt;&lt;h2 id=&quot;安裝Ruby&quot;&gt;&lt;a href=&quot;#安裝Ruby&quot; class=&quot;headerlink&quot; title=&quot;安裝Ruby&quot;&gt;&lt;/a&gt;安裝Ruby&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rbenv install -l      # list all available versions&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rbenv install 2.1.5   # install a Ruby version&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rbenv global 2.1.5    # set the global version&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rbenv versions        # list all installed Ruby versions&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;配置gem源&quot;&gt;&lt;a href=&quot;#配置gem源&quot; class=&quot;headerlink&quot; title=&quot;配置gem源&quot;&gt;&lt;/a&gt;配置gem源&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gem sources -a http://ruby.taobao.org/ -r https://rubygems.org/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo &amp;apos;gem: --no-document&amp;apos; \&amp;gt;\&amp;gt; \~/.gemrc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gem update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gem update --system&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安装-MongoDB-MySQL&quot;&gt;&lt;a href=&quot;#安装-MongoDB-MySQL&quot; class=&quot;headerlink&quot; title=&quot;安装 MongoDB, MySQL&quot;&gt;&lt;/a&gt;安装 MongoDB, MySQL&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;brew install mongodb mysql&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;設置開機自啓動「可選」&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkdir -p \~/Library/LaunchAgents&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -sfv /usr/local/opt/mongodb/\*.plist \~/Library/LaunchAgents&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -sfv /usr/local/opt/mysql/\*.plist \~/Library/LaunchAgents&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安装-Pow&quot;&gt;&lt;a href=&quot;#安装-Pow&quot; class=&quot;headerlink&quot; title=&quot;安装 Pow&quot;&gt;&lt;/a&gt;安装 &lt;a href=&quot;http://pow.cx/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Pow&lt;/a&gt;&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl get.pow.cx | sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gem install powder&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/Rodreegez/powder&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Powder&lt;/a&gt; 是一套管理工具&lt;/p&gt;
+&lt;h2 id=&quot;SSH-KeyGen&quot;&gt;&lt;a href=&quot;#SSH-KeyGen&quot; class=&quot;headerlink&quot; title=&quot;SSH-KeyGen&quot;&gt;&lt;/a&gt;SSH-KeyGen&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ssh-keygen -t rsa&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cat \~/.ssh/id\_rsa.pub&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;安裝Rails-sass-compass-以及-hexo&quot;&gt;&lt;a href=&quot;#安裝Rails-sass-compass-以及-hexo&quot; class=&quot;headerlink&quot; title=&quot;安裝Rails, sass, compass 以及 hexo&quot;&gt;&lt;/a&gt;安裝Rails, sass, compass 以及 hexo&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gem install rails sass compass&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm install -g hexo&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;安裝必要工具&quot;&gt;&lt;a href=&quot;#安裝必要工具&quot; class=&quot;headerlink&quot; title=&quot;安裝必要工具&quot;&gt;&lt;/a&gt;安裝必要工具&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gem install mysql2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gem install capistrano&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gem install capistrano-ext&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;Snippets-Download&quot;&gt;&lt;a href=&quot;#Snippets-Download&quot; class=&quot;headerlink&quot; title=&quot;Snippets -  Download&quot;&gt;&lt;/a&gt;Snippets -  &lt;a href=&quot;Snippets - Download&quot;&gt;Download&lt;/a&gt;&lt;/h2&gt;&lt;h2 id=&quot;安裝其他APP&quot;&gt;&lt;a href=&quot;#安裝其他APP&quot; class=&quot;headerlink&quot; title=&quot;安裝其他APP&quot;&gt;&lt;/a&gt;安裝其他APP&lt;/h2&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;重裝系統之後，很多東西需要重裝，特別是開發環境。而開發環境的先後順序和設置，一直是我頭疼的事情。這次就着從新安裝了一遍，把很多東西都記錄下來。之前那個環境被我搞的亂七八糟，並且恢復不回來了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/Yosemite.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="sass" scheme="http://hivan.me/tags/sass/"/>
+    
+      <category term="osx" scheme="http://hivan.me/tags/osx/"/>
+    
+      <category term="system" scheme="http://hivan.me/tags/system/"/>
+    
+      <category term="ruby" scheme="http://hivan.me/tags/ruby/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Power for Mac</title>
+    <link href="http://hivan.me/Power-for-Mac/"/>
+    <id>http://hivan.me/Power-for-Mac/</id>
+    <published>2015-01-09T06:17:09.000Z</published>
+    <updated>2015-11-20T07:03:17.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/power.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;很多人都会使用”Pow”来进行本地静态页面开发环境。对于其配置确实简单到有爱。&lt;/p&gt;
+&lt;p&gt;不过Yosemite上”Pow”都不能正常工作，之前我参照官方的办法写了一篇如何在Yosemite上设置”Pow”的方法。有兴趣的可以参看我原文:&lt;a href=&quot;http://hivan.me/setting-pow-at-Yosemite/&quot;&gt;http://hivan.me/setting-pow-at-Yosemite/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;不过一直用的好好的”Pow”近期又开始出现 404 错误，短暂的解决无果以后，我开始寻找一些快速能解决的办法，便遇到了”Power”，和”Pow”一样，都是建立快速开发环境，并且经过测试，在Yosemite 10.10.1下正常工作。&lt;/p&gt;
+&lt;p&gt;使用”Pow”来做开发环境的，可以暂时用这样一个替代方案，毕竟开发中没有时间去多做研究了，暂时不知道两者的区别，不过”.dev”正常访问已经没有问题。&lt;/p&gt;
+&lt;p&gt;Power 项目地址: &lt;a href=&quot;https://github.com/HackPlan/power/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/HackPlan/power/&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/power.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;很多人都会使用”Pow”来进行本地静态页面开发环境。对于其配置确实简单到有爱。&lt;/p&gt;
+&lt;p&gt;不过Yosemite上”Pow”都不能正常工作，
+    
+    </summary>
+    
+    
+      <category term="pow" scheme="http://hivan.me/tags/pow/"/>
+    
+      <category term="server" scheme="http://hivan.me/tags/server/"/>
+    
+      <category term="ROR" scheme="http://hivan.me/tags/ROR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Yosemite中设置Pow</title>
+    <link href="http://hivan.me/setting-pow-at-Yosemite/"/>
+    <id>http://hivan.me/setting-pow-at-Yosemite/</id>
+    <published>2014-11-07T07:58:06.000Z</published>
+    <updated>2014-11-09T09:32:50.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在Yosemite中，Pow安装和启动是有问题的。这是因为ipfw被移除了，所以如果要在Yosemite中跑Pow，需要做些设置才可以。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/blog/imgpow_logo.png&quot; alt=&quot;Pow&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;1, 添加文件&lt;code&gt;com.pow&lt;/code&gt;到&lt;code&gt;/etc/pf.anchors/&lt;/code&gt;目录内&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/pf.anchors/com.pow&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2, 在文件内添加代码:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rdr pass on lo0 inet proto tcp from any to any port 80 -&amp;gt; 127.0.0.1 port 20559`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;NOTE: 代码后一行必须要有换行符，否则会出现语法错误&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;3, 打开文件&lt;code&gt;/etc/pf.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4, 添加代码: &lt;code&gt;rdr-anchor &amp;quot;pow&amp;quot;&lt;/code&gt;，需要添加到&lt;code&gt;rdr-anchor &amp;quot;com.apple/*&amp;quot;&lt;/code&gt;下一行&lt;/p&gt;
+&lt;p&gt;5, 打开文件&lt;code&gt;/etc/pf.anchors/com.apple&lt;/code&gt;, 并添加代码:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;load anchor &amp;quot;pow&amp;quot; from &amp;quot;/etc/pf.anchors/com.pow&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;NOTE: 一样必须有换行符&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;6, 终端执行:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo pfctl -f /etc/pf.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;7, 好了，现在可以打开&lt;code&gt;pf&lt;/code&gt;了:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo pfctl -e&lt;/code&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在Yosemite中，Pow安装和启动是有问题的。这是因为ipfw被移除了，所以如果要在Yosemite中跑Pow，需要做些设置才可以。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/blog/imgpow_logo.png&quot; alt=&quot;Pow&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="pow" scheme="http://hivan.me/tags/pow/"/>
+    
+      <category term="Mac" scheme="http://hivan.me/tags/Mac/"/>
+    
+      <category term="OSX" scheme="http://hivan.me/tags/OSX/"/>
+    
+      <category term="Yosemite" scheme="http://hivan.me/tags/Yosemite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VPS 设置 Hexo</title>
+    <link href="http://hivan.me/VPS-setting-hexo/"/>
+    <id>http://hivan.me/VPS-setting-hexo/</id>
+    <published>2014-11-02T04:13:00.000Z</published>
+    <updated>2014-11-09T09:33:25.000Z</updated>
+    
+    <content type="html">&lt;p&gt;首先需要感谢@&lt;a href=&quot;http://lucifr.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;lucifr&lt;/a&gt;，我现在这篇文就是在iPad上登录VPS完成的。最后还是忍不住入手了下边两个APP:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/blog/img/snap_prompt.jpg&quot; alt=&quot;Prompt&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;当然我其实到现在并不完美，因为rsync和自动执行&lt;code&gt;generate&lt;/code&gt;的代码我没有完成。安装&lt;a href=&quot;http://inotify.aiken.cz/?section=incron&amp;amp;page=download&amp;amp;lang=en&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;incrond&lt;/a&gt;的时候总会出错，于是无法执行集群文件同步.所以现在还是在终端里执行&lt;code&gt;generate&lt;/code&gt;和&lt;code&gt;cp -rf /home/xxxx/* /home/xxxx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;我这里并不是要教设置步骤，因为其实@lucifr 已经在他的&lt;a href=&quot;http://lucifr.com/2013/06/02/hexo-on-cloud-with-dropbox-and-vps/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这篇文&lt;/a&gt;里写的很清楚了，我就写几点注意事项&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;搞定VPS操作和基本的Linux命令很重要。&lt;/li&gt;
+&lt;li&gt;要搞定lnmp，参照这里的lnmp详细介绍&lt;/li&gt;
+&lt;li&gt;新版本的Hexo有更改，在同一目录里是找不到/cli/generate.js的，更别说console.log语句了&lt;/li&gt;
+&lt;li&gt;@lucifr所说的新建立一个Dropbox账户，意思是在VPS主机上建立一个账户用来执行Dropbox同步，而不是新建立一个Dropbox账户。&lt;/li&gt;
+&lt;li&gt;其他…&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;好吧，写其他是因为iPad上用VI进行编辑实在有点难受，现在先这样了，以后有时间了再写一个更详细的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/blog/img/snap_prompt_ssh.jpg&quot; alt=&quot;Prompt&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先需要感谢@&lt;a href=&quot;http://lucifr.com/&quot;&gt;lucifr&lt;/a&gt;，我现在这篇文就是在iPad上登录VPS完成的。最后还是忍不住入手了下边两个APP:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/blog/img/snap_prompt.jpg&quot; alt=&quot;Prompt&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="VPS" scheme="http://hivan.me/tags/VPS/"/>
+    
+      <category term="hexo" scheme="http://hivan.me/tags/hexo/"/>
+    
+      <category term="Dropbox" scheme="http://hivan.me/tags/Dropbox/"/>
+    
+      <category term="SSH" scheme="http://hivan.me/tags/SSH/"/>
+    
+      <category term="linux" scheme="http://hivan.me/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>compass 开启 sourcemaps</title>
+    <link href="http://hivan.me/compass-enable-sourcemaps/"/>
+    <id>http://hivan.me/compass-enable-sourcemaps/</id>
+    <published>2014-10-29T07:28:41.000Z</published>
+    <updated>2014-10-29T07:36:40.000Z</updated>
+    
+    <content type="html">&lt;p&gt;sass 3.0 开始包含了sourcemaps…. （妈蛋，都是屁话，大家都知道了）&lt;/p&gt;
+&lt;p&gt;直接进入正题，sass开启sourcemaps的话，命令行如下:&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;code&gt;sass --sourcemaps --watch&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;可是在compass中我们如果这么用的话:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;compass --sourcemaps --watch&lt;/code&gt;&lt;br&gt;是绝对行不通的。&lt;/p&gt;
+&lt;p&gt;如果compass下开启，首先还是需要下载一个扩展包&lt;br&gt;（假设你已经下载安装好ruby,sass, compass等一众开发环境)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;gem install compass-sourcemaps --pre&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;然后在项目内打开设置文件&lt;code&gt;config.rb&lt;/code&gt;,如果你是&lt;code&gt;compass creat&lt;/code&gt;的话，这个文件是自动生成的&lt;/p&gt;
+&lt;p&gt;在内添加如下代码开启&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# enable sourcemaps&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;enable_sourcemaps = true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sass_options = &amp;#123;:sourcemap =&amp;gt; true&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后再到Chrome中看吧，OK了。&lt;/p&gt;
+&lt;p&gt;也推荐使用Koala: &lt;a href=&quot;http://koala-app.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://koala-app.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;记得设置调用系统组件&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;sass 3.0 开始包含了sourcemaps…. （妈蛋，都是屁话，大家都知道了）&lt;/p&gt;
+&lt;p&gt;直接进入正题，sass开启sourcemaps的话，命令行如下:&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="compass" scheme="http://hivan.me/tags/compass/"/>
+    
+      <category term="sourcemaps" scheme="http://hivan.me/tags/sourcemaps/"/>
+    
+      <category term="sass" scheme="http://hivan.me/tags/sass/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Yosemite访问用户级服务器目录</title>
+    <link href="http://hivan.me/yosemite-open-usersite/"/>
+    <id>http://hivan.me/yosemite-open-usersite/</id>
+    <published>2014-10-22T09:44:50.000Z</published>
+    <updated>2014-10-23T03:06:46.000Z</updated>
+    
+    <content type="html">&lt;p&gt;升级到OSX 10.10(Yosemite)以后，&lt;code&gt;localhost&lt;/code&gt;是可以正常访问的，只是&lt;code&gt;localhost/~user&lt;/code&gt;无法打开了，提示403错误。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;网上查找资料，说是随着系统的更新，Apache本本更新到2.4.9，PHP也更新到了5.5.14，所以Apache的配置就需要做相应的修改。&lt;/p&gt;
+&lt;p&gt;首先，我们需要确定打开了Apache&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo apachectl start&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后设置允许访问用户目录&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;修改httpd.conf配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo subl /etc/apache2/httpd.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;command + f 查找代码，并去掉注释符 &lt;code&gt;#&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;LoadModule authz_core_module libexec/apache2/mod_authz_core.so&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LoadModule authz_host_module libexec/apache2/mod_authz_host.so&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LoadModule userdir_module libexec/apache2/mod_userdir.so&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LoadModule php5_module libexec/apache2/libphp5.so&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Include /private/etc/apache2/extra/httpd-vhosts.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Include /private/etc/apache2/extra/httpd-userdir.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;修改httpd-userdir.conf配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo subl /etc/apache2/extra/httpd-userdir.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;command + f 查找以下代码，去掉注释符&lt;code&gt;#&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Include /private/etc/apache2/users/*.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;修改yourUserName.conf配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo subl /etc/apache2/users/username.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;PS: username为你的用户名称，如果没有该文件则新建一个，然后将内容修改为:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Options Indexes MultiViews&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;AllowOverride None&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Require all granted&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后设置文件权限为&lt;code&gt;755&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 755 /etc/apache2/users/haibor.conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;最后我们需要重启Apache&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo apachectl restart&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;升级到OSX 10.10(Yosemite)以后，&lt;code&gt;localhost&lt;/code&gt;是可以正常访问的，只是&lt;code&gt;localhost/~user&lt;/code&gt;无法打开了，提示403错误。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="OSX" scheme="http://hivan.me/tags/OSX/"/>
+    
+      <category term="Yosemite" scheme="http://hivan.me/tags/Yosemite/"/>
+    
+      <category term="Macbook" scheme="http://hivan.me/tags/Macbook/"/>
+    
+      <category term="localhost" scheme="http://hivan.me/tags/localhost/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Alfred 2 Plugin -- open in Atom</title>
+    <link href="http://hivan.me/alfred-2-plugin----open-in-atom/"/>
+    <id>http://hivan.me/alfred-2-plugin----open-in-atom/</id>
+    <published>2014-09-09T08:17:05.000Z</published>
+    <updated>2014-09-09T08:42:09.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://farm6.staticflickr.com/5590/15187112175_5ff1cf4549_z_d.jpg&quot; alt=&quot;atom.alfredworkflow&quot;&gt;&lt;/p&gt;
+&lt;p&gt;用于在Alfred 2中用命令快速调用Atom打开所见文档，类似于Open in Sublime， 为了自己方便建立了一个workflow，有需要的下载吧！&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/hivan/Alfred-2-plugin/blob/master/Open%20in%20Atom.alfredworkflow?raw=true&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Open in Atom.alfredworkflow&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://farm6.staticflickr.com/5590/15187112175_5ff1cf4549_z_d.jpg&quot; alt=&quot;atom.alfredworkflow&quot;&gt;&lt;/p&gt;
+&lt;p&gt;用于在Alfred 2中用命令快速调用Atom打开
+    
+    </summary>
+    
+    
+      <category term="Alfred" scheme="http://hivan.me/tags/Alfred/"/>
+    
+      <category term="Plugin" scheme="http://hivan.me/tags/Plugin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>King of pop 2014</title>
+    <link href="http://hivan.me/king-of-pop-2014/"/>
+    <id>http://hivan.me/king-of-pop-2014/</id>
+    <published>2014-06-25T01:54:28.000Z</published>
+    <updated>2014-06-25T02:08:12.000Z</updated>
+    
+    <content type="html">&lt;p&gt;I MISS U.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://farm3.staticflickr.com/2672/3710428663_d4618a894f_b.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;I MISS U.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://farm3.staticflickr.com/2672/3710428663_d4618a894f_b.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://hivan.me/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>纪念</title>
+    <link href="http://hivan.me/25X2de6cifang/"/>
+    <id>http://hivan.me/25X2de6cifang/</id>
+    <published>2014-06-04T09:27:38.000Z</published>
+    <updated>2014-06-04T09:36:56.000Z</updated>
+    
+    <content type="html">&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;math xmlns=&amp;apos;http://www.w3.org/1998/Math/MathML&amp;apos;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;mn&amp;gt;25&amp;lt;/mn&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;mo&amp;gt; &amp;amp;#x00D7;&amp;lt;!--multiplication sign --&amp;gt;&amp;lt;/mo&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;msup&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;mrow&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;mn&amp;gt;2&amp;lt;/mn&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/mrow&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;mrow&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;lt;mn&amp;gt;6&amp;lt;/mn&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/mrow&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;/msup&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;mo&amp;gt;=&amp;lt;/mo&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;mo&amp;gt;?&amp;lt;/mo&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/math&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;以上，为了纪念！&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+    
+    </summary>
+    
+      <category term="life" scheme="http://hivan.me/categories/life/"/>
+    
+    
+      <category term="life" scheme="http://hivan.me/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自定义文件上传框</title>
+    <link href="http://hivan.me/custom-inputfile/"/>
+    <id>http://hivan.me/custom-inputfile/</id>
+    <published>2014-06-04T07:12:48.000Z</published>
+    <updated>2014-06-04T09:13:49.000Z</updated>
+    
+    <content type="html">&lt;p&gt;其实这根本就不值得写出来，只是可能前几步大家都做了，只是最后一步就忽略了。&lt;br&gt;&lt;img src=&quot;https://farm6.staticflickr.com/5196/14320298586_2c05c821ac_o_d.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;我们在自定义&lt;code&gt;input:file&lt;/code&gt;的时候，一般来说都是外边包一层，里边在写一个&lt;code&gt;&amp;lt;input type=&amp;quot;file&amp;quot;&amp;gt;&lt;/code&gt;, 然后将其透明值设置成&lt;code&gt;0&lt;/code&gt;,然后再定义外层的样式来达到自定义的目的。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;HTML：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;upfileOutWrap&amp;quot;&amp;gt;
+  &amp;lt;div class=&amp;quot;upfileWrap&amp;quot;&amp;gt;&amp;lt;input type=&amp;quot;file&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+  &amp;lt;div class=&amp;quot;upfileBG&amp;quot;&amp;gt;upload image&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;CSS：&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;.upfileOutWrap { 
+  cursor: pointer; 
+  width: 199px;  height: 42px; 
+  line-height: 42px; 
+  position: relative;
+}
+.upfileWrap{
+  width: 100%;  height: 100%; 
+  position: absolute; 
+  top:-1; left: -1; 
+  z-index:2;
+}
+.upfileWrap input{
+  opacity: 0; filter: alpha(opacity=0); 
+  cursor: pointer; 
+  width: 100%; height: 100%;
+  font-size: 32px;
+}
+.upfileBG{
+  width:100%; height:100%; 
+  background: url(./images/upload.png) no-repeat; 
+  font-size: 14px; 
+  color: white; 
+  position: absolute; 
+  top:-1; left: -1; 
+  padding-left:10px; 
+  z-index:1;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;https://farm4.staticflickr.com/3874/14156755400_e1e91a66b6_o_d.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;可是这个时候还是有点问题，就是万恶的IE下边。&lt;/p&gt;
+&lt;p&gt;IE下边的&lt;code&gt;input&lt;/code&gt;标签默认都是有光标的，&lt;code&gt;:file&lt;/code&gt;也不例外，而且IE下边必须要点击”Browse”或者双击&lt;code&gt;input&lt;/code&gt;输入框才会有效果。那么这个时候在IE下就会出现如图的莫名其妙的问题，注意左边的光标，并且还需要双击才会弹出文件选择窗口。&lt;br&gt;&lt;img src=&quot;https://farm4.staticflickr.com/3903/14343379175_89590a504f_o_d.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这个时候如果你把input透明度设置成100显示出来，就会发现原来是这样的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://farm4.staticflickr.com/3920/14342594154_1cb4af92b4_o_d.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;所以这个时候，如果是其他标准浏览器，那么设置好input的高宽就搞定了，而IE下边，还必须考虑如何让”Browse”按钮能铺满我们所自定的div样式。这样我们才能实现IE下不出现光标，而且单击弹出文件选择窗口。&lt;/p&gt;
+&lt;p&gt;这个时候，看似毫无办法，其实我们可以选择增加字体的大小。当字体变成&lt;code&gt;32px&lt;/code&gt;的时候，就是这个样子的。&lt;br&gt;&lt;img src=&quot;https://farm4.staticflickr.com/3926/14156914197_ccb8fd7e43_o_d.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;好了，这样我们就搞定了，将&lt;code&gt;input:file&lt;/code&gt; 继续设置为完全透明。那个可恶的光标不见了，我们也可以实现IE下单击。当然，字体到底用多大的，要视你自己定义的视觉效果来看，自己调试吧。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Final CSS: &lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;.upfileOutWrap { 
+  cursor: pointer; 
+  width: 199px;  height: 42px; 
+  line-height: 42px; 
+  position: relative;
+}
+.upfileWrap{
+  width: 100%;  height: 100%; 
+  position: absolute; 
+  top:-1; left: -1; 
+  z-index:2;
+}
+.upfileWrap input{
+  opacity: 0; filter: alpha(opacity=0); 
+  cursor: pointer; 
+  width: 100%; height: 100%;
+}
+.upfileBG{
+  width:100%; height:100%; 
+  background: url(./images/upload.png) no-repeat; 
+  font-size: 14px; 
+  color: white; 
+  position: absolute; 
+  top:-1; left: -1; 
+  padding-left:10px; 
+  z-index:1;
+}
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;其实这根本就不值得写出来，只是可能前几步大家都做了，只是最后一步就忽略了。&lt;br&gt;&lt;img src=&quot;https://farm6.staticflickr.com/5196/14320298586_2c05c821ac_o_d.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;我们在自定义&lt;code&gt;input:file&lt;/code&gt;的时候，一般来说都是外边包一层，里边在写一个&lt;code&gt;&amp;lt;input type=&amp;quot;file&amp;quot;&amp;gt;&lt;/code&gt;, 然后将其透明值设置成&lt;code&gt;0&lt;/code&gt;,然后再定义外层的样式来达到自定义的目的。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="develop" scheme="http://hivan.me/categories/develop/"/>
+    
+    
+      <category term="code" scheme="http://hivan.me/tags/code/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>just breathable</title>
+    <link href="http://hivan.me/just-breathable/"/>
+    <id>http://hivan.me/just-breathable/</id>
+    <published>2014-05-19T06:12:41.000Z</published>
+    <updated>2014-05-19T07:02:39.000Z</updated>
+    
+    <content type="html">&lt;p&gt;只是为了出来透个气，看看自己的博客，荒芜了快半年了！这段时间一直在忙，但是也不知道最后忙出来了个什么名堂！&lt;/p&gt;
+&lt;p&gt;有想写博客的欲望，但是却不知道该写一点什么。就先这样占位吧。&lt;/p&gt;
+&lt;p&gt;PS: _海贼_的故事拖的太慢了。。。好吧，送我家猫两只！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://lh5.googleusercontent.com/-mlroo1iHVKw/U29U3No_QbI/AAAAAAABpdg/GdVXcoBipvo/w983-h656-no/IMG_9887.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;只是为了出来透个气，看看自己的博客，荒芜了快半年了！这段时间一直在忙，但是也不知道最后忙出来了个什么名堂！&lt;/p&gt;
+&lt;p&gt;有想写博客的欲望，但是却不知道该写一点什么。就先这样占位吧。&lt;/p&gt;
+&lt;p&gt;PS: _海贼_的故事拖的太慢了。。。好吧，送我家猫两只！&lt;/p&gt;
+&lt;p&gt;&lt;
+    
+    </summary>
+    
+      <category term="life" scheme="http://hivan.me/categories/life/"/>
+    
+    
+      <category term="life" scheme="http://hivan.me/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nitrous.io</title>
+    <link href="http://hivan.me/nitrousio/"/>
+    <id>http://hivan.me/nitrousio/</id>
+    <published>2013-12-17T07:23:40.000Z</published>
+    <updated>2013-12-18T05:46:31.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;世界，真心是美好的啊！&quot;&gt;&lt;a href=&quot;#世界，真心是美好的啊！&quot; class=&quot;headerlink&quot; title=&quot;世界，真心是美好的啊！&quot;&gt;&lt;/a&gt;世界，真心是美好的啊！&lt;/h1&gt;&lt;p&gt;好吧，再使用nitrous之前，我一直都不知道，原来世界可以如此美好。&lt;/p&gt;
+&lt;p&gt;不需要Dropbox君，不需要git的master了，而且可以随时随地hexo。&lt;/p&gt;
+&lt;p&gt;妈妈再也不用担心我的md文档丢失了。。。&lt;/p&gt;
+&lt;p&gt;这货不仅仅是node.js,还有Rails，python以及Go环境哦。。。&lt;/p&gt;
+&lt;p&gt;亲们，还在等什么。如果windows下的Ruby环境配置让你想砸机子的冲动，那么赶快来&lt;a href=&quot;https://www.nitrous.io/join/vREqfwMikHc&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;nitrous.io&lt;/a&gt;吧！&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;世界，真心是美好的啊！&quot;&gt;&lt;a href=&quot;#世界，真心是美好的啊！&quot; class=&quot;headerlink&quot; title=&quot;世界，真心是美好的啊！&quot;&gt;&lt;/a&gt;世界，真心是美好的啊！&lt;/h1&gt;&lt;p&gt;好吧，再使用nitrous之前，我一直都不知道，原来世界可以如此美好
+    
+    </summary>
+    
+      <category term="develop" scheme="http://hivan.me/categories/develop/"/>
+    
+    
+      <category term="nitrous" scheme="http://hivan.me/tags/nitrous/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>set ARC in Xcode 5</title>
+    <link href="http://hivan.me/set-arc-in-xcode-5/"/>
+    <id>http://hivan.me/set-arc-in-xcode-5/</id>
+    <published>2013-09-28T04:29:12.000Z</published>
+    <updated>2014-05-19T06:49:34.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在Xcode5中遇到一个问题，从老师那里继承的习惯，就是自己写release, 而到了xcode5中，自己写release会显示错误，其中的原因就是xcode5默认是使用自动ARC机制的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://farm3.staticflickr.com/2877/9979865694_1d3430c275_o.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;在Xcode 4中，我们在建立一个Project的时候下边是三个选项的，其中一项就是勾选是否ARC的，如果不打勾，那么就可是自己手动写release，按照我们老师的话，虽然自己写稍微麻烦一点，但是对于理解iOS内部的内存管理机制是有利的，并且鼓励我们都自己写。于是，也养成了此样的习惯。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://farm4.staticflickr.com/3697/9979901576_a4f354c04c_o.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;是不是我们就没办法了呢？其实，在Xcode5中还是可以设置回手动进行内存管理的。需要进行一些设置:&lt;/p&gt;
+&lt;p&gt;首先我们要点击项目进入Project设置:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://farm3.staticflickr.com/2818/9979858514_9ccebcb3a0_o.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;然后我在进入build setting:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://farm3.staticflickr.com/2891/9979953893_3a9da1381e_o.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在然后我们找到OC的ARC设置，将YES改为NO就可以了.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://farm3.staticflickr.com/2880/9979958443_9d40de37cc_o.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;更改完毕后再回去将alloc的函数release掉，现在不会报错了！&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在Xcode5中遇到一个问题，从老师那里继承的习惯，就是自己写release, 而到了xcode5中，自己写release会显示错误，其中的原因就是xcode5默认是使用自动ARC机制的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://farm3.staticflickr.com/2877/9979865694_1d3430c275_o.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="develop" scheme="http://hivan.me/categories/develop/"/>
+    
+    
+      <category term="xcode" scheme="http://hivan.me/tags/xcode/"/>
+    
+      <category term="ARC" scheme="http://hivan.me/tags/ARC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mac apache</title>
+    <link href="http://hivan.me/mac-apache/"/>
+    <id>http://hivan.me/mac-apache/</id>
+    <published>2013-09-11T15:35:17.000Z</published>
+    <updated>2013-12-17T16:05:22.000Z</updated>
+    
+    <content type="html">&lt;p&gt;经常忘记命令，还是自己稍微记录一下好，免得每次都去Google。&lt;/p&gt;
+&lt;p&gt;打开 apache&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apachectl start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;關閉 Apache：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apachectl stop&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;重開 Apache：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apachectl restart&lt;/code&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;经常忘记命令，还是自己稍微记录一下好，免得每次都去Google。&lt;/p&gt;
+&lt;p&gt;打开 apache&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apachectl start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;關閉 Apache：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apachectl 
+    
+    </summary>
+    
+      <category term="develop" scheme="http://hivan.me/categories/develop/"/>
+    
+    
+      <category term="Mac" scheme="http://hivan.me/tags/Mac/"/>
+    
+      <category term="OSX" scheme="http://hivan.me/tags/OSX/"/>
+    
+  </entry>
+  
+</feed>
