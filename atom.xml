@@ -399,7 +399,7 @@
     <link href="http://hivan.me/setting-pow-at-Yosemite/"/>
     <id>http://hivan.me/setting-pow-at-Yosemite/</id>
     <published>2014-11-07T07:58:06.000Z</published>
-    <updated>2014-11-09T09:32:50.000Z</updated>
+    <updated>2016-06-03T08:49:28.000Z</updated>
     
     <content type="html">&lt;p&gt;在Yosemite中，Pow安装和启动是有问题的。这是因为ipfw被移除了，所以如果要在Yosemite中跑Pow，需要做些设置才可以。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://duart.qiniudn.com/blog/imgpow_logo.png&quot; alt=&quot;Pow&quot;&gt;&lt;/p&gt;
@@ -407,7 +407,7 @@
 &lt;p&gt;1, 添加文件&lt;code&gt;com.pow&lt;/code&gt;到&lt;code&gt;/etc/pf.anchors/&lt;/code&gt;目录内&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;sudo vim /etc/pf.anchors/com.pow&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;2, 在文件内添加代码:&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rdr pass on lo0 inet proto tcp from any to any port 80 -&amp;gt; 127.0.0.1 port 20559`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rdr pass on lo0 inet proto tcp from any to any port 80 -&amp;gt; 127.0.0.1 port 20559&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rdr pass on en0 inet proto tcp from any to any port 80 -&amp;gt; 127.0.0.1 port 20559&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rdr pass on en9 inet proto tcp from any to any port 80 -&amp;gt; 127.0.0.1 port 20559&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;strong&gt;NOTE: 代码后一行必须要有换行符，否则会出现语法错误&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;3, 打开文件&lt;code&gt;/etc/pf.conf&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;4, 添加代码: &lt;code&gt;rdr-anchor &amp;quot;pow&amp;quot;&lt;/code&gt;，需要添加到&lt;code&gt;rdr-anchor &amp;quot;com.apple/*&amp;quot;&lt;/code&gt;下一行&lt;/p&gt;
@@ -430,9 +430,9 @@
     
       <category term="pow" scheme="http://hivan.me/tags/pow/"/>
     
-      <category term="Mac" scheme="http://hivan.me/tags/Mac/"/>
-    
       <category term="OSX" scheme="http://hivan.me/tags/OSX/"/>
+    
+      <category term="Mac" scheme="http://hivan.me/tags/Mac/"/>
     
       <category term="Yosemite" scheme="http://hivan.me/tags/Yosemite/"/>
     
@@ -865,9 +865,9 @@
       <category term="develop" scheme="http://hivan.me/categories/develop/"/>
     
     
-      <category term="Mac" scheme="http://hivan.me/tags/Mac/"/>
-    
       <category term="OSX" scheme="http://hivan.me/tags/OSX/"/>
+    
+      <category term="Mac" scheme="http://hivan.me/tags/Mac/"/>
     
   </entry>
   
